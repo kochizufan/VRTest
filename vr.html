@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)http://public-blog-dev.s3.amazonaws.com/wp-content/uploads/2012/06/sensor.html -->
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0">
+		
+		<title>Motion Sensorsサンプル</title>
+		<script>
+		
+//■加速度センサー(Motion Sensors)		
+			window.addEventListener("devicemotion", function(event1){
+				var x = event1.accelerationIncludingGravity.x;
+				var y = event1.accelerationIncludingGravity.y;
+				var z = event1.accelerationIncludingGravity.z;
+				
+
+
+				var result11 = document.getElementById("result11");
+				result11.innerHTML = 
+					"[X："+ Math.round(x * 10) / 10 + "][" +
+					"Y："+ Math.round(y * 10) / 10 + "][" +
+					"Z："+ Math.round(z * 10) / 10 +"]";
+
+				var result1 = document.getElementById("result1");
+					
+	if (  Math.round(z * 10 / 10) > 5 && Math.round(z * 10 / 10) < 7 ) { 
+        
+				result1.innerHTML = "★" ;
+				
+         } else if ( Math.round(z * 10 / 10) > 7  && Math.round(z * 10 / 10) < 9 ) {
+        
+				result1.innerHTML = "★　　★" ;
+         } else {
+        
+				result1.innerHTML = " " ;
+       
+        }
+		  
+
+			}, true);
+			
+					
+			window.addEventListener('deviceorientation', function(event2) {
+		        var alpha = event2.alpha;
+		        var beta = event2.beta;
+				var gamma = event2.gamma;
+				
+				result2.innerHTML = 
+					"[alpha："+ Math.round(alpha * 10) / 10 + "][" +
+					"beta："+ Math.round(beta * 10) / 10 + "][" +
+					"gamma："+ Math.round(gamma * 10) / 10 +"]";
+					
+					
+					
+					
+		    }, true);
+		    
+		    
+			window.addEventListener('deviceorientation', function(event3) {
+		        var alpha = event3.alpha;
+		        var beta = event3.beta;
+				var gamma = event3.gamma;
+				
+	if ( Math.round(alpha * 10 / 10) > 365 || Math.round(alpha * 10 / 10) < 10 ) {
+	
+				result3.innerHTML =  "北 梅田" ;
+				
+        } else if ( Math.round(alpha * 10 / 10) > 45  && Math.round(alpha * 10 / 10) < 55 ) {
+        
+				result3.innerHTML = "六甲山"　 ;
+        } else if ( Math.round(alpha * 10 / 10) > 55  && Math.round(alpha * 10 / 10) < 65 ) {
+        
+				result3.innerHTML = "京セラドーム大阪"　 ;
+        } else if ( Math.round(alpha * 10 / 10) > 80  && Math.round(alpha * 10 / 10) < 100 ) {
+        
+				result3.innerHTML = "西　海遊館"　 ;
+        
+         } else if ( Math.round(alpha * 10 / 10) > 170  && Math.round(alpha * 10 / 10) < 190 ) {
+        
+				result3.innerHTML = "南　仁徳天皇陵" ;
+				
+        } else if ( Math.round(alpha * 10 / 10) > 260  && Math.round(alpha * 10 / 10) < 280 ) {
+        
+				result3.innerHTML = "東　生駒山" ;
+                  
+        } else if ( Math.round(alpha * 10 / 10) > 335  && Math.round(alpha * 10 / 10) < 345 ) {
+        
+				result3.innerHTML = "大阪城" ;
+				                
+        } else if ( Math.round(alpha * 10 / 10) > 345  && Math.round(alpha * 10 / 10) < 365 ) {
+        
+				result3.innerHTML = "OAPビル" ;
+				
+         } else {
+        
+				result3.innerHTML = " " ;
+       
+        }
+					
+					
+		    }, true);
+		    
+//位置情報の取得(Geolocation)		    
+		    
+     window.addEventListener("load", function(){
+        var result = document.getElementById("result");
+         
+        if (!navigator.geolocation){
+          result.innerHTML = "Geolocation 使用不可";
+          return;
+        }
+         
+        var option = {
+          timeout : 10000
+        }
+        navigator.geolocation.watchPosition(resultHandler, faultHandler, option);
+         
+        function resultHandler(position){
+          var latitude = position.coords.latitude;
+          var longitude = position.coords.longitude;
+          var accuracy = position.coords.accuracy;
+          var altitudeAccuracy = position.coords.altitudeAccuracy;
+                    
+          result.innerHTML = "緯度："+ latitude +
+            "経度：" + longitude + "<br>" + "緯度経度："+ accuracy +
+            "高度：" + altitudeAccuracy + "<br>";
+        }
+         
+        function faultHandler(error){
+          result.innerHTML = error.code;
+        }
+      }, true);	    
+      
+//■マルチメディア(Multimedia)
+
+      window.addEventListener("load", function(){
+       
+        if (!HTMLAudioElement){
+          return;
+        }
+ 
+        var audio = document.getElementById("audio");
+ 
+        document.getElementById("play").addEventListener("click", function(){
+          audio.play();
+        }, true);
+         
+        document.getElementById("stop").addEventListener("click", function(){
+          audio.pause();
+        }, true);
+ 
+        document.getElementById("back").addEventListener("click", function(){
+          audio.currentTime = 0;
+          audio.pause();
+        }, true);
+      }, true);
+            
+		    
+		</script>
+				
+	</head>
+	<body bgcolor="#000000" text="#ffffff">
+		
+        <div id="result"></div>	
+		<div id="result11">[X： ][Y：][ Z：]</div>
+		<div id="result2">[alpha：][ beta：][ gamma：]</div>
+		
+		<center><font size="+7" color="#ffffff"><div id="result1"></div></font></center>		
+	
+		  
+		<center><font size="+7" color="#ffffff"><div id="result3"></div></font></center>		
+
+     
+    <div>
+
+		
+		  </circle>
+		
+		  </svg>
+	
+</body></html>
